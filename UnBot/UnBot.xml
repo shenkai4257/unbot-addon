@@ -40,12 +40,16 @@
 				self:RegisterEvent("UPDATE_BINDINGS");
 				self:RegisterEvent("CHAT_MSG_WHISPER");
 				self:RegisterEvent("RAID_TARGET_UPDATE");
+				self:RegisterEvent("PLAYER_LOGIN");  <!-- 注册 PLAYER_LOGIN 事件 -->
 			</OnLoad>
 			<OnEvent>
 				if (event == "ADDON_LOADED" and arg1 == "UnBot") then
 					InitializeUnBotFrame();
 					UnBotLogInfo = {};
 					self.DelayInitTime = GetTime() + 3;
+				elseif (event == "PLAYER_LOGIN") then
+                                        local uiScale = tonumber(GetCVar("uiScale")) or 1.0;  <!-- 添加默认值 -->
+                                        self:SetScale(uiScale*1.2);<!-- 缩放frame -->
 				elseif (event == "UPDATE_BINDINGS") then
 					UnBotUpdateHotkeys();
 				elseif (event == "CHAT_MSG_WHISPER") then
